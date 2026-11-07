@@ -8,6 +8,8 @@ This site is built as a dark, futuristic "coding universe" using vanilla web tec
 
 ## 🌟 Quick Overview
 
+- **Live Website**: [https://iron-man-3000.github.io/portfolio/](https://iron-man-3000.github.io/portfolio/)
+- **GitHub Repository**: [https://github.com/iron-man-3000/portfolio](https://github.com/iron-man-3000/portfolio)
 - **Local Preview**: `http://localhost:8000`
 - **Primary Languages**: Python (competitive programming & math), JavaScript (currently learning)
 - **Daily Driver**: macOS (Zsh & Terminal)
