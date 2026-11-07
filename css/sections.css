@@ -1,0 +1,665 @@
+/* ==========================================================================
+   SECTIONS.CSS
+   About (Editorial split-text), Skills (SVG rings & CP Card),
+   Open Source (Interactive Terminal), Contact (Transmissions)
+   ========================================================================== */
+
+.content-section {
+  position: relative;
+  z-index: 10;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-4);
+  border-top: 1px solid var(--white-15);
+}
+
+/* Section Header Meta */
+.section-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  font-family: var(--font-mono);
+}
+
+.section-index {
+  font-size: 0.85rem;
+  color: var(--lime);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.section-tag {
+  font-size: 0.75rem;
+  color: var(--white-35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+/* ==========================================================================
+   SECTION 1: ABOUT (Asymmetric Editorial Typography)
+   ========================================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.about-statement {
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 2.4vw, 1.95rem);
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.about-statement strong {
+  font-weight: 600;
+  color: var(--white);
+}
+
+.about-statement .text-lime {
+  color: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  text-shadow: 0 0 10px var(--lime-dim);
+}
+
+.about-secondary {
+  margin-top: var(--space-6);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--white-60);
+  line-height: 1.8;
+}
+
+/* Split-text line reveal helper classes */
+.reveal-line {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.8s var(--ease-out-expo);
+  will-change: transform;
+}
+
+.reveal-inner.is-revealed {
+  transform: translateY(0%);
+}
+
+/* Editorial Specs Card (Right Column) */
+.about-specs {
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-none);
+  padding: var(--space-5);
+  position: relative;
+}
+
+.specs-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--lime);
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--white-15);
+  display: flex;
+  justify-content: space-between;
+}
+
+.specs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-bottom: var(--space-2);
+}
+
+.spec-key {
+  color: var(--white-60);
+}
+
+.spec-val {
+  color: var(--white);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ==========================================================================
+   SECTION 2: SKILLS (Progress Rings & Competitive Programming Card)
+   ========================================================================== */
+.skills-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* Languages Progress Grid */
+.languages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.skill-ring-card {
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-none);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-ring-card:hover {
+  border-color: var(--lime);
+  box-shadow: 0 0 20px var(--lime-dim);
+}
+
+.ring-svg-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: var(--space-2) 0;
+}
+
+.ring-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--white-15);
+  stroke-width: 5;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2; /* 2 * PI * 40 */
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 1.4s var(--ease-out-expo);
+  filter: drop-shadow(0 0 4px var(--lime));
+}
+
+.ring-percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.skill-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  margin-top: var(--space-2);
+}
+
+.skill-desc {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--white-60);
+  margin-top: 4px;
+}
+
+/* CP & Maths Showcase HUD Card */
+.cp-card {
+  background: var(--surface);
+  border: 1px solid var(--white-35);
+  border-radius: var(--radius-none);
+  padding: var(--space-5);
+  position: relative;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+}
+
+.cp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--white-15);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.cp-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.cp-badge {
+  background: var(--lime-dim);
+  border: 1px solid var(--lime);
+  color: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.cp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.cp-stat-box {
+  background: rgba(7, 8, 10, 0.6);
+  border: 1px solid var(--white-15);
+  padding: var(--space-3);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--white-35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 4px;
+}
+
+.stat-val.highlight {
+  color: var(--lime);
+  text-shadow: 0 0 10px var(--lime-dim);
+}
+
+.maths-topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-3);
+}
+
+.math-tag {
+  background: var(--white-05);
+  border: 1px solid var(--white-15);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--white-60);
+  border-radius: var(--radius-none);
+}
+
+/* ==========================================================================
+   SECTION 3: OPEN SOURCE (Terminal Card - Loading First Contribution)
+   ========================================================================== */
+.terminal-card {
+  background: var(--surface);
+  border: 1px solid var(--white-35);
+  border-radius: var(--radius-none);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  position: relative;
+}
+
+.terminal-titlebar {
+  background: #14171D;
+  padding: 10px var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--white-15);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--white-60);
+}
+
+.terminal-ctrls {
+  display: flex;
+  gap: 8px;
+}
+
+.ctrl-btn {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--white-35);
+}
+
+.ctrl-btn:hover {
+  background: var(--lime);
+}
+
+.terminal-console {
+  padding: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--white);
+  min-height: 280px;
+}
+
+.cmd-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-2);
+}
+
+.cmd-prefix {
+  color: var(--lime);
+  font-weight: 700;
+}
+
+.cmd-text {
+  color: var(--white);
+}
+
+.terminal-log {
+  color: var(--white-60);
+  margin-bottom: var(--space-3);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--white-15);
+}
+
+.log-lime {
+  color: var(--lime);
+}
+
+.log-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lime);
+  font-weight: 600;
+}
+
+.loading-bar {
+  display: inline-block;
+  width: 140px;
+  height: 4px;
+  background: rgba(182, 255, 59, 0.2);
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: var(--lime);
+  animation: load-slide 1.6s infinite ease-in-out;
+}
+
+@keyframes load-slide {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+.cli-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--white-15);
+}
+
+.cli-input {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--white);
+  outline: none;
+  flex: 1;
+}
+
+.cli-input::placeholder {
+  color: var(--white-35);
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   SECTION 4: CONTACT & TRANSMISSIONS
+   ========================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.contact-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: var(--space-4);
+}
+
+.contact-bio {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--white-60);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+/* Social Link Pill Buttons */
+.social-links-deck {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.social-pill:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--lime-dim);
+}
+
+.social-pill-arrow {
+  font-size: 0.9em;
+  color: var(--lime);
+}
+
+/* Contact Mail Form Card */
+.contact-form-box {
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-none);
+  padding: var(--space-6);
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--white-60);
+  text-transform: uppercase;
+}
+
+.form-input, .form-textarea {
+  background: rgba(7, 8, 10, 0.7);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-none);
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 10px var(--lime-dim);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--lime);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-none);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-expo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit-btn:hover {
+  background: #FFFFFF;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   FOOTER (System Specs & Monospace Colophon)
+   ========================================================================== */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  border-top: 1px solid var(--white-15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--white-35);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.easter-egg-hint {
+  color: var(--lime);
+  opacity: 0.7;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .about-grid,
+  .skills-container,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .languages-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .languages-grid {
+    grid-template-columns: 1fr;
+  }
+  .cp-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

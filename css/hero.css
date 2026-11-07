@@ -1,0 +1,345 @@
+/* ==========================================================================
+   HERO.CSS
+   Floating Name (3D Tilt & Repulsion), Typewriter Subtitle, Tech Chips Orbit
+   ========================================================================== */
+
+#hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--nav-height) + var(--space-4)) var(--space-4) var(--space-8);
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+/* Constellation Canvas behind hero elements */
+#constellation-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hero Center Wrapper */
+.hero-stage {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 1100px;
+  width: 100%;
+  pointer-events: none; /* Let pointer events through to individual elements */
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+
+/* Status Indicator Header */
+.hero-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 16px;
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--white-60);
+  margin-bottom: var(--space-4);
+  pointer-events: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero-meta-badge .meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+}
+
+.hero-meta-badge .meta-time {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* The Giant 3D Floating Name */
+.floating-name-container {
+  position: relative;
+  margin: var(--space-2) 0;
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.floating-name {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9.5vw, 8.8rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  transform-style: preserve-3d;
+  position: relative;
+  z-index: 2;
+}
+
+.name-word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.name-word:first-child {
+  margin-right: 0.28em;
+}
+
+/* Individual letter span for offset physics */
+.name-char {
+  display: inline-block;
+  position: relative;
+  will-change: transform, color;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+
+.name-char:hover {
+  color: var(--lime);
+  text-shadow: 0 0 25px var(--lime-glow-strong);
+}
+
+/* RGB Glitch Accent Effect */
+.floating-name.glitch-active .name-char:nth-child(even) {
+  text-shadow: -2px 0 0 rgba(255, 255, 255, 0.8), 2px 0 0 var(--lime);
+  transform: translate(1px, -1px);
+}
+
+.floating-name.glitch-active .name-char:nth-child(odd) {
+  text-shadow: 2px 0 0 rgba(255, 255, 255, 0.8), -2px 0 0 var(--lime);
+  transform: translate(-1px, 1px);
+}
+
+/* Soft lime reflection beneath name */
+.name-reflection {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: radial-gradient(ellipse at center top, rgba(182, 255, 59, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(8px);
+  z-index: 1;
+}
+
+/* Typewriter Subtitle */
+.hero-subtitle-box {
+  margin-top: var(--space-4);
+  pointer-events: auto;
+}
+
+.hero-typewriter {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.8vw, 1.15rem);
+  color: var(--white-60);
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typewriter-prefix {
+  color: var(--lime);
+  font-weight: 700;
+}
+
+.typewriter-text {
+  color: var(--white);
+  border-bottom: 1px dotted var(--white-35);
+  padding-bottom: 2px;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background-color: var(--lime);
+  vertical-align: -2px;
+  animation: blink 0.9s infinite;
+}
+
+/* Floating Tech Chips Container */
+#chips-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Individual Tech Chip */
+.tech-chip {
+  position: absolute;
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  padding: 8px 18px;
+  background: rgba(14, 16, 20, 0.85);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  will-change: transform;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, transform 0.15s ease-out;
+}
+
+.tech-chip:active {
+  cursor: grabbing;
+}
+
+.tech-chip .chip-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--white-35);
+  border-radius: var(--radius-pill);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Chip depth layers */
+.tech-chip[data-layer="1"] {
+  z-index: 12;
+  filter: blur(0px);
+}
+
+.tech-chip[data-layer="2"] {
+  z-index: 8;
+  opacity: 0.85;
+  filter: blur(0.3px);
+  font-size: 0.74rem;
+}
+
+.tech-chip[data-layer="3"] {
+  z-index: 4;
+  opacity: 0.65;
+  filter: blur(0.8px);
+  font-size: 0.7rem;
+}
+
+/* Chip Hover State */
+.tech-chip:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  box-shadow: 0 0 20px var(--lime-dim), 0 0 2px var(--lime);
+  transform: scale(1.1) !important;
+  z-index: 20 !important;
+}
+
+.tech-chip:hover .chip-dot {
+  background: var(--lime);
+  box-shadow: 0 0 6px var(--lime);
+}
+
+/* Floating Tooltip */
+#chip-tooltip {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  background: var(--surface);
+  border: 1px solid var(--lime);
+  padding: 6px 12px;
+  border-radius: var(--radius-none);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 10px var(--lime-dim);
+  opacity: 0;
+  transform: translate(-50%, -130%);
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+#chip-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: var(--lime) transparent transparent transparent;
+}
+
+/* Scroll Cue indicator at bottom of hero */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--white-35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  pointer-events: auto;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hero-scroll-cue:hover {
+  color: var(--lime);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--lime), transparent);
+  animation: scroll-pulse 2s infinite ease-in-out;
+}
+
+@keyframes scroll-pulse {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.1% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@media (max-width: 768px) {
+  .hero-stage {
+    padding-top: var(--space-4);
+  }
+  .tech-chip {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+}

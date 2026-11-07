@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kanan Gupta — Student, competitive programmer, open source enthusiast, and creative developer inside a sci-fi coding universe.">
+  <meta name="theme-color" content="#07080A">
+  <title>Kanan Gupta // Universe</title>
+
+  <!-- Favicon (Procedural Lime Pixel) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307080A'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23B6FF3B'/%3E%3C/svg%3E">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/intro.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+  <!-- Film Grain / Micro Noise Texture Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Background Starfield Canvas with Parallax & Shooting Stars -->
+  <canvas id="starfield-canvas" aria-hidden="true"></canvas>
+
+  <!-- Electric Lime Scroll Progress Bar -->
+  <div id="scroll-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- =========================================================================
+       PART 1: 15-SECOND CINEMATIC INTRO
+       ========================================================================= -->
+  <div id="intro-overlay" role="dialog" aria-modal="true" aria-label="Cinematic Boot Sequence">
+    <div class="crt-scanlines" aria-hidden="true"></div>
+
+    <!-- Intro Top Bar HUD -->
+    <header class="intro-hud">
+      <div class="intro-hud-left">
+        <span>SYS.BOOT // ROCKET SEQUENCE</span>
+        <span class="intro-timer" id="intro-timer">00.00s / 08.50s [ACCEL]</span>
+      </div>
+      <div class="intro-hud-right">
+        <button class="audio-toggle-btn is-active" id="intro-audio-toggle" type="button" aria-label="Toggle rocket acceleration audio">
+          <span class="status-dot"></span>
+          <span class="audio-text">ROCKET AUDIO: ON</span>
+        </button>
+        <button class="intro-skip-btn" id="intro-skip-btn" type="button" aria-label="Skip cinematic intro">
+          SKIP › [ESC]
+        </button>
+      </div>
+    </header>
+
+    <!-- Canvas for Binary Rain, Lorenz Attractor, Particles -->
+    <canvas id="intro-canvas" aria-hidden="true"></canvas>
+
+    <!-- Stage Center Container -->
+    <div class="intro-stage">
+      <!-- 0.0 - 2.5s : Boot Terminal -->
+      <div id="boot-terminal" class="terminal-card">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot active"></span>
+          </div>
+          <span>zsh — 80x24 — universe.py</span>
+        </div>
+        <div class="terminal-body">
+          <p><span class="prompt-prefix">kanan@universe:~$</span><span id="boot-line"></span><span class="blinking-cursor"></span></p>
+        </div>
+      </div>
+
+      <!-- 2.5 - 6.0s : Python Runtime -->
+      <div id="python-stage">
+        <pre class="code-block"><code><span class="code-comment"># Generating infinite sequences</span>
+<span class="code-keyword">def</span> <span class="code-fn">fibonacci</span>(n: <span class="code-keyword">int</span>):
+    a, b = <span class="code-num">0</span>, <span class="code-num">1</span>
+    <span class="code-keyword">while</span> <span class="code-num">True</span>:
+        <span class="code-keyword">yield</span> a
+        a, b = b, a + b
+
+squares = [x**<span class="code-num">2</span> <span class="code-keyword">for</span> x <span class="code-keyword">in</span> <span class="code-fn">range</span>(<span class="code-num">10</span>) <span class="code-keyword">if</span> x % <span class="code-num">2</span> == <span class="code-num">0</span>]
+<span class="code-fn">print</span>(<span class="code-str">"Python runtime initialized."</span>)</code></pre>
+        
+        <svg class="python-snake-container" viewBox="0 0 600 200" aria-hidden="true">
+          <path id="snake-path" class="snake-path" d="M 20 100 Q 150 10, 300 100 T 580 100" />
+        </svg>
+      </div>
+
+      <!-- 6.0 - 9.0s : CSS Design Lab -->
+      <div id="css-stage">
+        <div id="morph-box" class="morph-box">
+          <div class="hud-corner hud-corner-tl"></div>
+          <div class="hud-corner hud-corner-tr"></div>
+          <div class="hud-corner hud-corner-bl"></div>
+          <div class="hud-corner hud-corner-br"></div>
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--lime);">UI.VIEWPORT</span>
+        </div>
+        <span class="css-pill-tag">display: grid</span>
+        <span class="css-pill-tag">@keyframes morph</span>
+        <span class="css-pill-tag">backdrop-filter: blur(12px)</span>
+        <span class="css-pill-tag">perspective: 1000px</span>
+      </div>
+
+      <!-- 9.0 - 12.5s : Maths Showstopper -->
+      <div id="maths-stage">
+        <div id="maths-euler" class="maths-euler">e<sup>iπ</sup> + 1 = 0</div>
+        <div id="cp-flash-1" class="maths-cp-flash" style="top: 25%; left: 18%;">O(n log n)</div>
+        <div id="cp-flash-2" class="maths-cp-flash" style="bottom: 25%; right: 18%;">for _ in range(t):</div>
+      </div>
+
+      <!-- 12.5 - 14.5s : Convergence & Singularity -->
+      <div id="convergence-point"></div>
+    </div>
+
+    <!-- 14.5s : White Flash Implosion -->
+    <div id="flash-overlay"></div>
+
+    <!-- Bottom Progress Line -->
+    <div class="intro-progress-container">
+      <div id="intro-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       STICKY HUD NAVIGATION
+       ========================================================================= -->
+  <nav class="site-nav" aria-label="Main Navigation">
+    <a href="#hero" class="nav-brand">
+      <span class="nav-brand-prefix">[KG]</span>
+      <span>KANAN_GUPTA</span>
+    </a>
+
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span id="hud-solving-text">Open Source Architecture · Codeforces in Python</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link">[01] ABOUT</a></li>
+      <li><a href="#skills" class="nav-link">[02] SKILLS</a></li>
+      <li><a href="#open-source" class="nav-link">[03] OPEN_SOURCE</a></li>
+      <li><a href="#contact" class="nav-link">[04] CONTACT</a></li>
+      <li><button id="replay-intro-btn" class="nav-link" type="button" aria-label="Replay rocket intro" style="background:none; border:1px solid var(--white-15); cursor:pointer;">[↻ INTRO]</button></li>
+    </ul>
+  </nav>
+
+  <!-- =========================================================================
+       PART 2 & PART 3: HERO SECTION (FLOATING NAME & ORBITING CHIPS)
+       ========================================================================= -->
+  <header id="hero">
+    <!-- Constellation canvas linking orbiting tech chips -->
+    <canvas id="constellation-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-stage">
+      <!-- Live IST Clock & Node Status -->
+      <div class="hero-meta-badge">
+        <span class="meta-dot"></span>
+        <span>NODE: ASIA-SOUTH1</span>
+        <span>//</span>
+        <span class="meta-time" id="live-ist-clock">17:27:34 IST</span>
+      </div>
+
+      <!-- The Giant Floating Name with 3D Physics -->
+      <div class="floating-name-container" id="floating-name-wrap">
+        <h1 class="floating-name" id="floating-name" aria-label="Kanan Gupta">
+          <!-- Letter spans generated dynamically for offset sine timing & repulsion physics -->
+          <span class="name-word"><span class="name-char">K</span><span class="name-char">A</span><span class="name-char">N</span><span class="name-char">A</span><span class="name-char">N</span></span>
+          <span class="name-word"><span class="name-char">G</span><span class="name-char">U</span><span class="name-char">P</span><span class="name-char">T</span><span class="name-char">A</span></span>
+        </h1>
+        <div class="name-reflection" aria-hidden="true"></div>
+      </div>
+
+      <!-- Typewriter Subtitle -->
+      <div class="hero-subtitle-box">
+        <p class="hero-typewriter">
+          <span class="typewriter-prefix">&gt;</span>
+          <span class="typewriter-text" id="typewriter-target">student</span>
+          <span class="typewriter-cursor"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Orbiting Tech Chips Container -->
+    <div id="chips-container" aria-label="Interactive Tech Stack Chips"></div>
+
+    <!-- Floating Tooltip for Chips -->
+    <div id="chip-tooltip" role="tooltip" aria-hidden="true"></div>
+
+    <!-- Scroll Cue Link -->
+    <a href="#about" class="hero-scroll-cue" aria-label="Scroll down to About section">
+      <span>EXPLORE</span>
+      <span class="scroll-line"></span>
+    </a>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         SECTION 1: ABOUT (Asymmetric Editorial Layout)
+         ========================================================================= -->
+    <section id="about" class="content-section" aria-labelledby="about-title">
+      <header class="section-meta">
+        <span class="section-index">[01]</span>
+        <h2 id="about-title" class="section-title">ABOUT</h2>
+        <span class="section-tag">// ARCHITECTURE & PHILOSOPHY</span>
+      </header>
+
+      <div class="about-grid">
+        <div class="about-main-text">
+          <div class="reveal-line">
+            <p class="about-statement reveal-inner">
+              Student by day. Writing code that doesn't break at 2 AM by night.
+              Obsessed with <strong>mathematical purity</strong>, open source interfaces, and competing on the volleyball court.
+            </p>
+          </div>
+          <div class="reveal-line">
+            <p class="about-secondary reveal-inner">
+              When I'm not playing volleyball, I spend my time where mathematics and computers intersect: competitive programming in Python on Codeforces and exploring low-level open-source tool architectures.
+            </p>
+          </div>
+          <div class="reveal-line">
+            <p class="about-secondary reveal-inner">
+              Zero fluff. Zero synthetic placeholders. Strong believer in building software from primitives and reading the source code before assuming it's magic.
+            </p>
+          </div>
+        </div>
+
+        <!-- Technical Specification HUD Column -->
+        <aside class="about-specs" aria-label="Technical Parameters">
+          <div class="hud-corner hud-corner-tl"></div>
+          <div class="hud-corner hud-corner-tr"></div>
+          <div class="hud-corner hud-corner-bl"></div>
+          <div class="hud-corner hud-corner-br"></div>
+
+          <h3 class="specs-title">
+            <span>CORE_PARAMETERS</span>
+            <span>[SYS.SPEC]</span>
+          </h3>
+
+          <ul class="specs-list">
+            <li class="spec-item">
+              <span class="spec-key">Role</span>
+              <span class="spec-val">Student / Developer</span>
+            </li>
+            <li class="spec-item">
+              <span class="spec-key">Daily Driver</span>
+              <span class="spec-val">macOS / Zsh</span>
+            </li>
+            <li class="spec-item">
+              <span class="spec-key">Current Obsession</span>
+              <span class="spec-val" style="color: var(--lime);">Open Source</span>
+            </li>
+            <li class="spec-item">
+              <span class="spec-key">Hobby</span>
+              <span class="spec-val">Playing Volleyball</span>
+            </li>
+            <li class="spec-item">
+              <span class="spec-key">CP Environment</span>
+              <span class="spec-val">Python 3 / PyPy3</span>
+            </li>
+            <li class="spec-item">
+              <span class="spec-key">Favorite Complexity</span>
+              <span class="spec-val">O(1) amortized</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: SKILLS & COMPETITIVE PROGRAMMING
+         ========================================================================= -->
+    <section id="skills" class="content-section" aria-labelledby="skills-title">
+      <header class="section-meta">
+        <span class="section-index">[02]</span>
+        <h2 id="skills-title" class="section-title">SKILLS &amp; CP</h2>
+        <span class="section-tag">// RUNTIME CAPABILITIES</span>
+      </header>
+
+      <div class="skills-container">
+        <!-- SVG Progress Rings Grid -->
+        <div class="languages-grid">
+          <!-- Python -->
+          <article class="skill-ring-card">
+            <div class="ring-svg-wrap">
+              <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-bg" cx="50" cy="50" r="40" />
+                <circle class="ring-fill" cx="50" cy="50" r="40" data-percent="85" />
+              </svg>
+              <span class="ring-percent">85%</span>
+            </div>
+            <h3 class="skill-name">Python (Primary)</h3>
+            <p class="skill-desc">CP scripts, math puzzles, data structures</p>
+          </article>
+
+          <!-- JavaScript -->
+          <article class="skill-ring-card">
+            <div class="ring-svg-wrap">
+              <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-bg" cx="50" cy="50" r="40" />
+                <circle class="ring-fill" cx="50" cy="50" r="40" data-percent="50" />
+              </svg>
+              <span class="ring-percent">50%</span>
+            </div>
+            <h3 class="skill-name">JavaScript (Learning)</h3>
+            <p class="skill-desc">ES6+, DOM manipulation, Canvas 2D &amp; events</p>
+          </article>
+
+          <!-- HTML & CSS -->
+          <article class="skill-ring-card">
+            <div class="ring-svg-wrap">
+              <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-bg" cx="50" cy="50" r="40" />
+                <circle class="ring-fill" cx="50" cy="50" r="40" data-percent="88" />
+              </svg>
+              <span class="ring-percent">88%</span>
+            </div>
+            <h3 class="skill-name">HTML &amp; CSS</h3>
+            <p class="skill-desc">Accessible tree, sub-pixel grid, 3D math</p>
+          </article>
+
+          <!-- Git & macOS / CLI -->
+          <article class="skill-ring-card">
+            <div class="ring-svg-wrap">
+              <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-bg" cx="50" cy="50" r="40" />
+                <circle class="ring-fill" cx="50" cy="50" r="40" data-percent="85" />
+              </svg>
+              <span class="ring-percent">85%</span>
+            </div>
+            <h3 class="skill-name">Git &amp; macOS</h3>
+            <p class="skill-desc">Daily driver, Zsh workflows, clean branching</p>
+          </article>
+        </div>
+
+        <!-- Competitive Programming & Maths Card -->
+        <article class="cp-card">
+          <div class="hud-corner hud-corner-tl"></div>
+          <div class="hud-corner hud-corner-tr"></div>
+          <div class="hud-corner hud-corner-bl"></div>
+          <div class="hud-corner hud-corner-br"></div>
+
+          <header class="cp-header">
+            <h3 class="cp-title">
+              <span>COMPETITIVE PROGRAMMING</span>
+            </h3>
+            <span class="cp-badge">LIVE ARENA</span>
+          </header>
+
+          <div class="cp-stats-grid">
+            <div class="cp-stat-box">
+              <span class="stat-label">Codeforces Handle</span>
+              <div class="stat-val" id="cf-handle-val">kanan.g26172</div>
+            </div>
+            <div class="cp-stat-box">
+              <span class="stat-label">Current Rating</span>
+              <div class="stat-val highlight" id="cf-rating-val">Unrated</div>
+            </div>
+            <div class="cp-stat-box">
+              <span class="stat-label">CP Language</span>
+              <div class="stat-val" style="color: var(--lime); font-size: 1rem;">Python 3 / PyPy</div>
+            </div>
+            <div class="cp-stat-box">
+              <span class="stat-label">Target Tier</span>
+              <div class="stat-val">Specialist (1400+)</div>
+            </div>
+          </div>
+
+          <h4 class="specs-title" style="margin-bottom: var(--space-2);">FOCUS TOPICS &amp; ALGORITHMS</h4>
+          <div class="maths-topic-tags">
+            <span class="math-tag">Constructive Algorithms</span>
+            <span class="math-tag">Number Theory</span>
+            <span class="math-tag">Fast I/O with sys.stdin</span>
+            <span class="math-tag">Greedy &amp; Sorting</span>
+            <span class="math-tag">Combinatorics</span>
+            <span class="math-tag">Graph Traversal (BFS/DFS)</span>
+            <span class="math-tag">Binary Search</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: OPEN SOURCE (Terminal Card - Loading First Contribution)
+         ========================================================================= -->
+    <section id="open-source" class="content-section" aria-labelledby="os-title">
+      <header class="section-meta">
+        <span class="section-index">[03]</span>
+        <h2 id="os-title" class="section-title">OPEN SOURCE</h2>
+        <span class="section-tag">// HONEST STATUS</span>
+      </header>
+
+      <div class="terminal-card" id="open-source-terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-ctrls">
+            <span class="ctrl-btn"></span>
+            <span class="ctrl-btn"></span>
+            <span class="ctrl-btn"></span>
+          </div>
+          <span>kanan@workstation: ~/open-source</span>
+          <span style="color: var(--lime);">GIT: HEAD -> MAIN</span>
+        </div>
+
+        <div class="terminal-console">
+          <div class="cmd-line">
+            <span class="cmd-prefix">$</span>
+            <span class="cmd-text">git status --verbose</span>
+          </div>
+          <div class="terminal-log">
+            On branch main<br>
+            Your branch is up to date with 'origin/main'.<br>
+            <span class="log-lime">[SYS] Scanning public repositories...</span><br>
+            Found: 0 closed pull requests.
+          </div>
+
+          <div class="cmd-line">
+            <span class="cmd-prefix">$</span>
+            <span class="cmd-text">git contribute --first</span>
+          </div>
+          <div class="terminal-log">
+            <div class="log-loading">
+              <span id="os-status-text">first open-source contribution: loading...</span>
+              <span class="loading-bar"></span>
+            </div>
+            <p style="margin-top: 8px; color: var(--white-60);">
+              Philosophy: No low-effort README typo PRs to pump vanity counts.<br>
+              Currently reading source code of low-level developer tools and preparing meaningful architectural contributions.
+            </p>
+          </div>
+
+          <!-- Interactive CLI Terminal Output Area -->
+          <div id="terminal-cli-output"></div>
+
+          <!-- Interactive Input Line -->
+          <div class="cli-input-row">
+            <span class="cmd-prefix">$</span>
+            <input type="text" id="terminal-cli-input" class="cli-input" placeholder="type 'help' or 'status'..." autocomplete="off" spellcheck="false" aria-label="Interactive terminal input">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: CONTACT & TRANSMISSIONS
+         ========================================================================= -->
+    <section id="contact" class="content-section" aria-labelledby="contact-title">
+      <header class="section-meta">
+        <span class="section-index">[04]</span>
+        <h2 id="contact-title" class="section-title">TRANSMISSION</h2>
+        <span class="section-tag">// OPEN FREQUENCIES</span>
+      </header>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3 class="contact-headline">LET'S SOLVE HARD PROBLEMS.</h3>
+          <p class="contact-bio">
+            Always open to discussions on competitive programming, open source architecture, or interesting mathematical puzzles.
+          </p>
+
+          <!-- Social Links Deck (From CONFIG) -->
+          <nav class="social-links-deck" aria-label="Social and coding profiles">
+            <a href="#" id="social-link-github" class="social-pill" target="_blank" rel="noopener noreferrer">
+              <span>GITHUB</span>
+              <span class="social-pill-arrow">↗</span>
+            </a>
+            <a href="#" id="social-link-linkedin" class="social-pill" target="_blank" rel="noopener noreferrer">
+              <span>LINKEDIN</span>
+              <span class="social-pill-arrow">↗</span>
+            </a>
+            <a href="#" id="social-link-codeforces" class="social-pill" target="_blank" rel="noopener noreferrer">
+              <span>CODEFORCES</span>
+              <span class="social-pill-arrow">↗</span>
+            </a>
+            <a href="#" id="social-link-email" class="social-pill">
+              <span>EMAIL</span>
+              <span class="social-pill-arrow">↗</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Mail Form Card -->
+        <div class="contact-form-box">
+          <div class="hud-corner hud-corner-tl"></div>
+          <div class="hud-corner hud-corner-tr"></div>
+          <div class="hud-corner hud-corner-bl"></div>
+          <div class="hud-corner hud-corner-br"></div>
+
+          <form action="mailto:kanan.gupta10114@gmail.com" method="GET" enctype="text/plain">
+            <div class="form-group">
+              <label for="form-sender" class="form-label">IDENTITY / SENDER</label>
+              <input type="text" id="form-sender" name="sender" class="form-input" placeholder="Your name or handle" required>
+            </div>
+            <div class="form-group">
+              <label for="form-subject" class="form-label">SUBJECT</label>
+              <input type="text" id="form-subject" name="subject" class="form-input" placeholder="Open Source / CP / Collab" required>
+            </div>
+            <div class="form-group">
+              <label for="form-message" class="form-label">TRANSMISSION DATA</label>
+              <textarea id="form-message" name="body" class="form-textarea" placeholder="Brief transmission data..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">
+              <span>TRANSMIT PACKET</span>
+              <span>↗</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span>KERNEL: VANILLA ES6</span>
+      <span>//</span>
+      <span>ENGINE: CANVAS 2D</span>
+      <span>//</span>
+      <span>PALETTE: #07080A / #FFFFFF / #B6FF3B</span>
+    </div>
+
+    <div class="footer-right">
+      <span class="easter-egg-hint">[ HINT: ↑ ↑ ↓ ↓ ← → ← → B A ]</span>
+      <span>&copy; <span id="footer-year">2026</span> KANAN GUPTA</span>
+    </div>
+  </footer>
+
+  <!-- Single Allowed CDN: GSAP Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Main ES Module Application -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

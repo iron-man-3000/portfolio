@@ -1,0 +1,364 @@
+/* ==========================================================================
+   INTRO.CSS
+   15-Second Cinematic Intro Styles: Boot -> Python -> CSS -> Maths -> Convergence
+   ========================================================================== */
+
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+#intro-overlay.intro-hidden {
+  display: none !important;
+  pointer-events: none;
+}
+
+/* CRT Scanline and Flicker effect on Intro */
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.25)
+  );
+  background-size: 100% 4px;
+  z-index: 10;
+  opacity: 0.6;
+}
+
+/* Top Intro Bar HUD */
+.intro-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+}
+
+.intro-hud-left {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--white-60);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.intro-timer {
+  color: var(--lime);
+  font-weight: 600;
+}
+
+.intro-hud-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.intro-skip-btn {
+  background: transparent;
+  border: 1px solid var(--white-35);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border-radius: var(--radius-none);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-expo);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intro-skip-btn:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  background: var(--lime-dim);
+}
+
+/* Bottom Progress Bar */
+.intro-progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 20;
+}
+
+#intro-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--lime);
+  box-shadow: 0 0 12px var(--lime);
+  transition: width 0.1s linear;
+}
+
+/* Stage Canvas for Binary Rain, Lorenz, Particles */
+#intro-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Central Stage Container */
+.intro-stage {
+  position: relative;
+  width: 90%;
+  max-width: 860px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  text-align: center;
+}
+
+/* PHASE 01: BOOT TERMINAL */
+#boot-terminal {
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-none);
+  text-align: left;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+}
+
+.terminal-header {
+  background: #14171D;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--white-15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--white-60);
+  letter-spacing: 0.05em;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--white-35);
+}
+
+.terminal-dot.active {
+  background: var(--lime);
+  box-shadow: 0 0 4px var(--lime);
+}
+
+.terminal-body {
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--white);
+  line-height: 1.7;
+  min-height: 180px;
+}
+
+.prompt-prefix {
+  color: var(--lime);
+  margin-right: 8px;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background-color: var(--lime);
+  vertical-align: -2px;
+  margin-left: 2px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* PHASE 02: PYTHON RUNTIME & CODE HIGHLIGHTING */
+#python-stage {
+  width: 100%;
+  max-width: 720px;
+  text-align: left;
+  display: none;
+  opacity: 0;
+}
+
+.code-block {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--white-60);
+}
+
+.code-keyword { color: var(--lime); font-weight: 600; }
+.code-fn { color: #FFFFFF; font-weight: 500; }
+.code-num { color: #FFFFFF; text-decoration: underline; text-decoration-color: var(--lime); }
+.code-str { color: rgba(255, 255, 255, 0.85); }
+.code-comment { color: var(--white-35); font-style: italic; }
+
+.python-snake-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.snake-path {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  filter: drop-shadow(0 0 8px var(--lime));
+}
+
+/* PHASE 03: CSS DESIGN LAB */
+#css-stage {
+  width: 100%;
+  max-width: 600px;
+  height: 380px;
+  position: relative;
+  display: none;
+  opacity: 0;
+  perspective: 1000px;
+}
+
+.morph-box {
+  width: 240px;
+  height: 240px;
+  margin: 40px auto 0;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 25px var(--lime-dim);
+  background: rgba(14, 16, 20, 0.4);
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: border-radius 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+}
+
+.css-pill-tag {
+  position: absolute;
+  padding: 6px 14px;
+  background: var(--surface);
+  border: 1px solid var(--lime);
+  color: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-none);
+  box-shadow: 0 0 12px var(--lime-dim);
+  opacity: 0;
+}
+
+/* PHASE 04: MATHS (FOURIER, LORENZ, EULER & CP) */
+#maths-stage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.maths-euler {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  text-shadow: 0 0 30px rgba(182, 255, 59, 0.4);
+}
+
+.maths-cp-flash {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--lime);
+  opacity: 0;
+  text-shadow: 0 0 15px var(--lime);
+  letter-spacing: 0.05em;
+}
+
+/* PHASE 05: CONVERGENCE & IMPLOSION */
+#convergence-point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--lime);
+  border-radius: var(--radius-pill);
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 0 40px 10px var(--lime);
+  opacity: 0;
+  z-index: 50;
+}
+
+#flash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+}
